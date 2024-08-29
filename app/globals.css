@@ -2,32 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.weather-container {
+  @apply relative flex flex-col items-center w-full bg-gray-500/30 backdrop-blur-sm p-10 text-white sm:rounded-none rounded-b-[11%];
+  transform: translateY(-100%);
+  opacity: 0;
+  animation: slideInFromTop 0.9s forwards; 
+  
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.details{
+  @apply flex gap-10 mt-7 text-center
+}
+.city-font {
+  @apply text-5xl font-extrabold;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.p-details {
+  font-family: 'Poppins', sans-serif;
+  line-height: 35px;
+  font-size: 20px;
+}
+
+.p-degree {
+  @apply text-7xl; 
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Centering and making the loader larger */
+.loader {
+  width: 120px; /* Increase width */
+  height: 60px; /* Increase height */
+  background: radial-gradient(circle 40px at top right, #ffd738 40%, #0000),
+              #4dbefa;
+  position: fixed; /* Centered relative to the viewport */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for center alignment */
+  overflow: hidden;
+  z-index: 9999; /* Ensure it's on top of other elements */
+  
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 6px; /* Adjust for larger loader */
+  left: -60px; /* Adjust for larger loader */
+  width: 48px; /* Adjust for larger loader */
+  height: 30px; /* Adjust for larger loader */
+  --c: radial-gradient(farthest-side, #fff 96%, #0000);
+  background: 
+    var(--c) 100% 100% /40% 60%, 
+    var(--c) 70% 0 /60% 100%, 
+    var(--c) 0 100% /40% 68%, 
+    var(--c) 27% 18% /30% 40%,
+    linear-gradient(#fff 0 0) bottom/67% 58%;
+  background-repeat: no-repeat;
+  animation: l10 2s linear infinite;
+}
+
+.loader:after {
+   top: 24px; /* Adjust for larger loader */
+   --l: 250%; /* Adjust for larger loader */
+}
+
+@keyframes l10 {
+  100% { left: var(--l, 105%); }
+}
+
+
+
+@media (max-width: 650px) {
+  
+  .city-font {
+    @apply text-3xl;
+  }
+
+  .details {
+    @apply flex flex-col mt-5 gap-3 text-center
+    
+  }
+  
+
+  .p-degree {
+    @apply text-6xl font-thin;
   }
 }
